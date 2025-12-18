@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: appdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d appdb"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    image: python:3.13-slim
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    environment:
+      # コンテナ内からはサービス名 'db' で参照
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/appdb
+    depends_on:
+      db:
+        condition: service_healthy
+    command: bash -lc "pip install --no-cache-dir -r requirements.txt && python -m uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres_data:

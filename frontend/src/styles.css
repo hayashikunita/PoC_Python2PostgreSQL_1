@@ -1,0 +1,14 @@
+* { box-sizing: border-box }
+body { font-family: system-ui, sans-serif; margin: 0; padding: 2rem; background: #f6f7f9 }
+.container { max-width: 720px; margin: 0 auto; background: #fff; padding: 1.5rem; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.08) }
+h1 { margin: 0 0 .25rem }
+.muted { color: #777; margin: 0 0 1rem }
+.row { display: flex; gap: .5rem; margin-bottom: 1rem }
+input { flex: 1; padding: .625rem .75rem; border-radius: 8px; border: 1px solid #ddd }
+button { padding: .5rem .75rem; border-radius: 8px; border: 1px solid #ddd; background: #1971ff; color: #fff; cursor: pointer }
+button.danger { background: #e03131 }
+button:disabled { opacity: .7; cursor: not-allowed }
+.list { list-style: none; padding: 0; margin: 0 }
+.list li { display: flex; align-items: center; justify-content: space-between; padding: .5rem 0; border-bottom: 1px solid #eee }
+.done { text-decoration: line-through; color: #888 }
+.error { color: #e03131 }
